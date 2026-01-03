@@ -28,4 +28,37 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
+
 });
+
+// active btn
+const navLinks = document.querySelectorAll('.aside .nav li a');
+
+navLinks.forEach(link => {
+  link.addEventListener('click', function() {
+    // Remove active class from all links
+    navLinks.forEach(l => l.classList.remove('active'));
+    // Add active class to the clicked link
+    this.classList.add('active');
+  });
+});
+
+//scroll avtive
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('section');
+  const scrollPos = window.scrollY || window.pageYOffset;
+
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 100;
+    const bottom = top + sec.offsetHeight;
+    const id = sec.getAttribute('id');
+
+    if (scrollPos >= top && scrollPos < bottom) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.aside .nav li a[href="#${id}"]`);
+      if(activeLink) activeLink.classList.add('active');
+    }
+  });
+});
+
+
